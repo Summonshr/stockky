@@ -1,25 +1,22 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="max-w-sm mx-auto py-4">
+      <Total/>
+      <Portfolios/>
+      <Motto/>
     </div>
-    <router-view/>
-  </div>
 </template>
-<style lang="stylus">
-#app
-  font-family 'Avenir', Helvetica, Arial, sans-serif
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
-  text-align center
-  color #2c3e50
+<script>
+import Total from './views/total';
+import Portfolios from './views/portfolios';
+import Motto from './views/motto';
 
-#nav
-  padding 30px
-  a
-    font-weight bold
-    color #2c3e50
-    &.router-link-exact-active
-      color #42b983
-</style>
+export default {
+  components: {
+     Total, Portfolios, Motto
+  },
+  created(){
+    this.$store.dispatch('getCompanies')
+  }
+}
+</script>
+
