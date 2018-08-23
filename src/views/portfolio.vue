@@ -1,5 +1,5 @@
 <template>
-    <div class="border-b border-l border-r border-red-dark p-2" >
+    <div class="border-b border-l border-r border-grey p-2 bg-grey-lightest" >
         <div class="w-full flex flex-wrap border-b py-2 justify-between">
         <h4 class="w-3/4 cursor-pointer sortable">
             <span v-html="full_name"></span> (Rs. <span v-html="current_price"></span>)
@@ -8,7 +8,7 @@
            <div class="w-full flex flex-wrap justify-around">
                 <font-awesome-icon class="cursor-pointer" :class="{'text-green-dark' : edit, 'text-blue-dark': !edit}" :icon="edit ? 'check' : 'edit'" @click="edit = !edit" />
                 <font-awesome-icon class="cursor-pointer text-green-dark" icon="plus" @click="add(portfolio[0])"/>
-                <font-awesome-icon class="cursor-pointer text-red-dark" icon="trash" v-confirm="'Are you sure?'" @click="bulkDelete(code)" />
+                <font-awesome-icon class="cursor-pointer text-red" icon="trash" v-confirm="'Are you sure?'" @click="bulkDelete(code)" />
            </div>
         </div>
         </div>
