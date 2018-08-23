@@ -1,11 +1,9 @@
 <template>
-    <div class="bg-grey-light py-4">
-      <div class="max-w-sm mx-auto shadow-lg">
-        <Header/>
-        <Total/>
-        <Portfolios/>
-        <Motto/>
-      </div>
+    <div class="max-w-sm mx-auto shadow-lg">
+      <Header/>
+      <Total/>
+      <Portfolios/>
+      <Motto/>
     </div>
 </template>
 <script>
