@@ -25,20 +25,20 @@
         </div>
         <div class="w-full py-1">
             <span class="text-grey-darkest">Total current value: Rs 
-                <span class="font-semibold">4,49,120</span>
+                <span class="font-semibold" v-html="current"></span>
             </span>
         </div>
-        <div class="w-full py-1 flex flex-wrap justify-between">
+        <div class="w-full py-1 flex flex-wrap justify-between" v-if="current != investment">
             <span class="text-grey-darkest">Current status: Rs 
-            <span class="font-semibold">11,934</span></span>
-            <span class="p-1 bg-green-lighter text-green-darker rounded font-semibold">In profit</span>
+                <span class="font-semibold" v-html="current - investment"></span>
+            </span>
+            <span class="p-1 bg-green-lighter text-green-darker rounded font-semibold" :class="{'bg-green-lighter text-green-darker' : current > investment, 'bg-red-lighter text-red-darker': investment > current}" v-html="current > investment ? 'In profit' : 'In Loss'"></span>
         </div>
     </div>
 </template>
 <script>
 import Add from "./add";
-import { mapState, mapGetters } from "vuex";
-import _ from "lodash";
+import {  mapGetters } from "vuex";
 
 export default {
   components: {

@@ -1,8 +1,9 @@
 <template>
     <div class="flex flex-wrap justify-around">
         <font-awesome-icon class="cursor-pointer text-green" @click="$modal.show('add')" icon="plus"></font-awesome-icon>
-        <font-awesome-icon icon="trash" class="cursor-pointer text-red-dark"></font-awesome-icon>
-        <font-awesome-icon icon="upload" class="cursor-pointer text-teal"></font-awesome-icon>
+        <font-awesome-icon v-if="portfolios.length > 0" icon="upload" @click="upload" class="cursor-pointer text-teal"></font-awesome-icon>
+        <font-awesome-icon v-else icon="download" @click="download" class="cursor-pointer text-teal"></font-awesome-icon>
+        <font-awesome-icon icon="trash" v-confirm="{loader: true, ok: (dialog)=>{empty(), dialog.close()}, cancel: ()=>{}, message:'Are you sure? it cannot be undone.'}" class="cursor-pointer text-red-dark"></font-awesome-icon>
         <modal name="add">
             <div class="px-2 pt-2">
                 <input type="text" placeholder="Search by name or symbol" v-model="search" class="w-full p-2 border-2 mb-2">
@@ -22,14 +23,26 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-
+import axios from "../axios";
+import Url from "../url";
 export default {
   name: "Add",
   computed: {
-    ...mapGetters(["unadded"])
+    ...mapGetters(["unadded", "portfolios"])
   },
   methods: {
-    ...mapMutations(["add"])
+    ...mapMutations(["add", "empty"]),
+    upload() {
+      axios.post(Url.export, { json: this.portfolios }).then(response => {
+        this.$dialog
+          .alert("Your backup key is " + response.data.key + "", {
+            okText: "Close"
+          })
+          .then(function(dialog) {});
+      });
+    },
+    download() {
+    }
   },
   data() {
     return {
