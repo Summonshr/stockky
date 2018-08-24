@@ -11,10 +11,14 @@ import Total from './views/total';
 import Portfolios from './views/portfolios';
 import Motto from './views/motto';
 import Header from './views/header';
+import {mapMutation} from 'vuex';
 
 export default {
   components: {
      Total, Portfolios, Motto, Header
+  },
+  methods: {
+    ...mapMutations(["add", "empty", "importer"]),
   },
   created(){
     this.$store.dispatch('getCompanies')
