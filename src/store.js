@@ -4,6 +4,7 @@ import Url from "./url";
 import axios from "./axios";
 import _ from "lodash";
 import VuexPersistence from "vuex-persist";
+import swal from 'sweetalert';
 
 Vue.use(Vuex);
 
@@ -20,8 +21,12 @@ export default new Vuex.Store({
     sort: []
   },
   mutations: {
+ 
     companies: (state, companies) => {
       state.companies = companies;
+    },
+    portfolios: (state, payload) =>{
+      state.portfolios = payload
     },
     empty: state => {
       state.portfolios = [];
@@ -59,6 +64,40 @@ export default new Vuex.Store({
         }
         return portfolio;
       });
+    },
+    importer(state){
+      swal({
+        text: 'Enter your backup key',
+        content: "input",
+        button: {
+          text: "Import !",
+          closeModal: false,
+        },
+      })
+      .then(key => {
+        if (!key) throw null;
+       
+        return axios.get(Url.import+'/'+ key);
+      })
+      .then(results => {
+        return JSON.parse(results.data.data);
+      })
+      .then(json => {
+        state.portfolios = json;
+        swal({
+          title: "Awesome !",
+          text: 'Imported Successfully',
+          icon: 'success',
+        });
+      })
+      .catch(err => {
+        if (err) {
+          swal("Oh noes!", "The Import request failed!", "error");
+        } else {
+          swal.stopLoading();
+          swal.close();
+        }
+      });
     }
   },
   actions: {
@@ -69,6 +108,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    pure: (state) => {
+      return state.portfolios;
+    },
     portfolios: state => {
       return _.sortBy(_.groupBy(state.portfolios, "code"), portfolio => {
         return _.indexOf(state.sort, portfolio[0].code);

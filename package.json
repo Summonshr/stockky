@@ -16,6 +16,7 @@
     "dialogs": "^1.1.20",
     "postcss-import": "^12.0.0",
     "register-service-worker": "^1.0.0",
+    "sweetalert": "^2.1.0",
     "tailwindcss": "^0.6.5",
     "vue": "^2.5.17",
     "vue-filters": "^0.1.6",
