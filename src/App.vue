@@ -11,7 +11,7 @@ import Total from './views/total';
 import Portfolios from './views/portfolios';
 import Motto from './views/motto';
 import Header from './views/header';
-import {mapMutation} from 'vuex';
+import {mapMutations} from 'vuex';
 
 export default {
   components: {
