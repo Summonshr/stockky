@@ -2,7 +2,7 @@
     <div class="flex flex-wrap justify-around">
         <font-awesome-icon class="cursor-pointer text-green" @click="$modal.show('add')" icon="plus"></font-awesome-icon>
         <font-awesome-icon v-if="portfolios.length > 0" icon="upload" @click="upload" class="cursor-pointer text-teal"></font-awesome-icon>
-        <font-awesome-icon v-else icon="download" @click="importer" class="cursor-pointer text-teal"></font-awesome-icon>
+        <font-awesome-icon v-else icon="download" @click="importCompanies" class="cursor-pointer text-teal"></font-awesome-icon>
         <font-awesome-icon icon="trash" v-confirm="{loader: true, ok: (dialog)=>{empty(), dialog.close()}, cancel: ()=>{}, message:'Are you sure? it cannot be undone.'}" class="cursor-pointer text-red-dark"></font-awesome-icon>
         <modal name="add">
             <div class="px-2 pt-2">
@@ -32,6 +32,7 @@ export default {
   },
   methods: {
     ...mapMutations(["add", "empty", "importer"]),
+    ...mapActions(["importCompanies"]),
     upload() {
       axios.post(Url.export, { json: this.pure }).then(response => {
         this.$dialog
@@ -47,7 +48,7 @@ export default {
       importKey: "",
       showModal: false,
       search: "",
-      download: false,
+      download: false
     };
   }
 };

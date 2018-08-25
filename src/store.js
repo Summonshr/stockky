@@ -5,7 +5,6 @@ import axios from "./axios";
 import _ from "lodash";
 import VuexPersistence from "vuex-persist";
 import swal from 'sweetalert';
-
 Vue.use(Vuex);
 
 const vuexLocal = new VuexPersistence({
@@ -21,7 +20,6 @@ export default new Vuex.Store({
     sort: []
   },
   mutations: {
- 
     companies: (state, companies) => {
       state.companies = companies;
     },
@@ -64,46 +62,42 @@ export default new Vuex.Store({
         }
         return portfolio;
       });
-    },
-    importer(state){
-      swal({
-        text: 'Enter your backup key',
-        content: "input",
-        button: {
-          text: "Import !",
-          closeModal: false,
-        },
-      })
-      .then(key => {
-        if (!key) throw null;
-       
-        return axios.get(Url.import+'/'+ key);
-      })
-      .then(results => {
-        return JSON.parse(results.data.data);
-      })
-      .then(json => {
-        state.portfolios = json;
-        swal({
-          title: "Awesome !",
-          text: 'Imported Successfully',
-          icon: 'success',
-        });
-      })
-      .catch(err => {
-        if (err) {
-          swal("Oh noes!", "The Import request failed!", "error");
-        } else {
-          swal.stopLoading();
-          swal.close();
-        }
-      });
     }
   },
   actions: {
     getCompanies: ({ commit }) => {
       axios.get(Url.companies).then(response => {
         commit("companies", response.data.companies);
+      });
+    },
+    importCompanies: ({ commit }) => {
+      swal({
+        text: "Enter your backup key",
+        content: "input",
+        button: {
+          text: "Import !",
+          closeModal: false
+        }
+      }).then(key => {
+        if (!key) throw null;
+
+        return axios.get(Url.import + "/" + key);
+      }).then(results => {
+        return JSON.parse(results.data.data);
+      }).then(json => {
+        commit('portfolios', json);
+        swal({
+          title: "Awesome !",
+          text: "Imported Successfully",
+          icon: "success"
+        });
+      }).catch(err => {
+        if (err) {
+          swal("Oh noes!", "The Import request failed!", "error");
+        } else {
+          swal.stopLoading();
+          swal.close();
+        }
       });
     }
   },
