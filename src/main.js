@@ -1,5 +1,5 @@
 import Vue from "vue";
-import App from "./App.vue";
+import Portfolio from "./views/portfolio";
 import router from "./router";
 import store from "./store";
 import VModal from "vue-js-modal";
@@ -82,5 +82,5 @@ const currency = function (x) {
 new Vue({
     router,
     store,
-    render: h => h(App)
+    render: h => h(Portfolio)
 }).$mount("#app");

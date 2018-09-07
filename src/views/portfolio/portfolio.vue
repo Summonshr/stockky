@@ -46,7 +46,7 @@
                         </td>
                     </tr>
                 </tbody>
-                <tfoot v-if="portfolio.length > 1" class="bg-green-lighter text-green-darker" :class="{'bg-red-lighter text-red-darker': total_current_value <= total_investment}">
+                <tfoot v-if="portfolio.length > 1" :class="{'bg-red-lighter text-red-darker': total_current_value <= total_investment, 'bg-green-lighter text-green-darker' : total_current_value > total_investment }">
                     <tr>
                         <td class="text-center border-r p-2">{{ total_no_of_shares | price }}</td>
                         <td class="text-center border-r p-2">{{ average_buying_price | price }}</td>

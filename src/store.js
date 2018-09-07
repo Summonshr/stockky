@@ -116,10 +116,6 @@ export default new Vuex.Store({
         company => !selected.includes(company.code)
       );
     },
-    enter: state => {
-      let portfolios = portfolios;
-      state.portfolios = portfolios;
-    },
     total: state => {
       return _.values(_.groupBy(state.portfolios, "code")).length;
     },
@@ -138,18 +134,25 @@ export default new Vuex.Store({
       );
     },
     investment: state => {
-      return _.sum(
-        state.portfolios.map(e => e.count * e.price).filter(Boolean)
+      let total = _.sum(
+        state.portfolios.map(e => {
+          let total = parseInt(e.count * e.price, 10);
+          return total * 0.006 + total + 31;
+        })
       );
+      return Math.round(total);
     },
     current: ({ companies, portfolios }) => {
-      return _.sum(
+      return Math.round(_.sum(
         portfolios.map(
-          portfolio =>
+          portfolio => {
+            let total = 
             _.find(portfolios, { code: portfolio.code }).latest_share_price *
-            portfolio.count
+            portfolio.count;
+            return  total - total * 0.006 - 31
+          }
         )
-      );
+      ));
     }
   }
 });

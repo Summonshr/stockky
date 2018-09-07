@@ -45,9 +45,6 @@ export default {
     Add
   },
   computed: {
-    name() {
-      return "some";
-    },
     ...mapGetters([
       "total",
       "count",

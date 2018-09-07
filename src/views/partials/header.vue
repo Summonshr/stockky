@@ -7,8 +7,8 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import axios from "../axios";
-import Url from "../url";
+import axios from "../../axios";
+import Url from "../../url";
 export default {
   name: "Add",
   computed: {

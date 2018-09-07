@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import App from "./App";
+import Portfolio from "./views/portfolio";
+import Company from './views/company';
 
 Vue.use(Router);
 
@@ -11,7 +12,12 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: App
+      component: Portfolio
+    },
+    {
+      path: "/company",
+      name: "company",
+      component: Company
     }
   ]
 });
