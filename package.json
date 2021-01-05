@@ -12,7 +12,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.2.0",
     "@fortawesome/vue-fontawesome": "^0.1.1",
     "autoprefixer": "^9.1.1",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "dialogs": "^1.1.20",
     "postcss-import": "^12.0.0",
     "register-service-worker": "^1.0.0",
